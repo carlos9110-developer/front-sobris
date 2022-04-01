@@ -1,0 +1,53 @@
+
+<div class="card">
+    <div class="card-header">
+        <p class="negrita">Listado Carteras</p>
+    </div>
+    <div class="card-body">
+        <div class="mb-3 row justify-content-end">
+            <div class="col-lg-6 col-md-9 col-sm-12 d-flex">
+                <label for="table-filtering-search" class="col-form-label mr-2">Buscar: </label>
+                <input id="table-filtering-search" class="form-control mr-2" type="text" (ngModelChange)="buscar()" [formControl]="filter">
+                <select class="form-control" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCobradores()">
+                    <option [ngValue]="5">5 registros por pagina</option>
+                    <option [ngValue]="10">10 registros por pagina</option>
+                    <option [ngValue]="15">15 registros por pagina</option>
+                </select>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Cédula</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Prestamos Activos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cobrador of cobradoresFinal; index as i">
+                    <th scope="row">{{ cobrador.position }}</th>
+                    <td>
+                        {{ cobrador.nombre }}
+                    </td>
+                    <td> {{ cobrador.cedula }}</td>
+                    <td>
+                        {{ cobrador.celular }}
+                    </td>
+                    <td> {{ cobrador.estado }}</td>
+                    <td> {{ cobrador.presamos_activos }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="d-flex justify-content-between p-2">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCobradores()">
+            </ngb-pagination>
+        
+            <p class="text-info negrita">Total Carteras: {{ collectionTotal }}</p>
+        </div>
+    </div>
+</div>
+

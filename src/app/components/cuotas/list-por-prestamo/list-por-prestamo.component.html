@@ -1,0 +1,95 @@
+<div class="card">
+    <div class="card-header d-flex">
+        <div class="col-lg-6 col-md-6 negrita">Cuotas Prestamo Seleccionado</div>
+        <div class="col-lg-6 col-md-6 text-right">
+            <button class="btn btn-info btn-sm negrita" (click)="regresar()">
+                <i class="bi bi-reply-all"></i>
+                Prestamos
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row justify-content-end">
+            <div class="col-lg-12 col-md-12 col-sm-12 d-flex">
+                <label for="fecha-filtering" class="col-form-label mr-2 text-secondary negrita">Fecha: </label>
+                <input id="fecha-filtering" class="form-control mr-2 " type="date" (ngModelChange)="buscarPorFecha()" [formControl]="filterFecha" />
+                <label for="table-filtering-search" class="col-form-label mr-2">Buscar: </label>
+                <input id="table-filtering-search" class="form-control mr-2" type="text" (ngModelChange)="buscar()" [formControl]="filter" />
+                <select class="form-control" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCuotas()">
+                    <option [ngValue]="5">5 registros por pagina</option>
+                    <option [ngValue]="10">10 registros por pagina</option>
+                    <option [ngValue]="15">15 registros por pagina</option>
+                </select>    
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <button  *ngIf="filterFecha.value !== '' " (click)="quitarFiltroFecha()" class="btn btn-danger btn-sm ml-5 mt-1">Quitar Filtro Fecha</button>
+            <div>
+        <div>
+
+        <div *ngIf="collectionTotal === 0" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center mt-4">
+            <p *ngIf="cargando === false" class="text-info negrita">
+                No se encontro ningún registro con la fecha seleccionada
+            </p>
+            <p *ngIf="cargando === true" class="text-info negrita">
+                Cargando información...
+            </p>
+        </div>
+            
+
+        <div *ngIf="collectionTotal !== 0" class="row mt-3">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="table table-striped letraTablas">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Celular</th>
+                            <th scope="col">Valor Cuota</th>
+                            <th scope="col">Valor Abonado</th>
+                            <th scope="col">Fecha Pago</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let cuota of cuotasFinal; index as i">
+                            <th scope="row">{{ cuota.position }}</th>
+                            <td>
+                                {{ cuota.nombre }}
+                            </td>
+                            <td> {{ cuota.celular }}</td>
+                            <td>
+                                {{ formatPesos(cuota.valor_cuota) }}
+                            </td>
+                            <td> {{ formatPesos(cuota.valor_abonado) }}</td>
+                            <td>
+                                {{   getFecha(cuota.fecha, cuota.fecha_nueva)  }}
+                            </td>
+                            <td> {{ cuota.estado }}</td>
+                            <td>
+                                <button *ngIf="cuota.estado !== 'Facturado' "  (click)="realizarPago(cuota.id)" type="button" title="Registrar Pago" class="btn btn-primary btn-sm mr-1"><i class="bi bi-cash"></i></button>
+                                <button *ngIf="cuota.estado !== 'Incumplido' && cuota.estado !== 'Facturado'" (click)="pagoIncumplido(cuota.id)" type="button" title="Marcar Como Incumplido" class="btn btn-danger btn-sm"><i class="bi bi-radioactive"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            <div>
+
+            <div class="d-flex justify-content-between p-2">
+                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCuotas()">
+                </ngb-pagination>
+            
+                <p class="text-info negrita">Total Cuotas Prestamo {{ numCuotasTotal }}</p>
+            </div>
+
+        <div>
+
+    </div>
+
+    
+
+</div>
+
+

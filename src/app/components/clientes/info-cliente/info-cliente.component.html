@@ -1,0 +1,89 @@
+<div class="card">
+    <div class="card-header d-flex">
+        <div class="col-lg-6 col-md-6"> <p class="negrita">Información Cliente</p></div>
+        <div class="col-lg-6 col-md-6 text-right">
+            <button class="btn btn-info btn-sm negrita" (click)="regresar()">
+                <i class="bi bi-reply-all"></i>
+                Clientes
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="clientesForm">
+            <div class="alert alert-dark" role="alert">
+                Información Codeudor
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="nombre-codeudor-input">Nombre</label>
+                        <input class="form-control"  formControlName="nombre_fiador" type="text" id="nombre-codeudor-input">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="cedula-codeudor-input">Cédula</label>
+                        <input class="form-control" formControlName="cedula_fiador" type="text" id="cedula-codeudor-input">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="celular-codeudor-input">Celular</label>
+                        <input class="form-control"  formControlName="celular_fiador" type="text" id="celular-codeudor-input">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="direccion-codeudor-input">Dirección</label>
+
+                        <input class="form-control" class="form-control" formControlName="direccion_fiador" type="text" id="direccion-codeudor-input">
+
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-dark" role="alert">
+                Información Cliente
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="nombre-cliente-input">Nombre</label>
+
+                        <input  class="form-control" formControlName="nombre" type="text" id="nombre-cliente-input">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="cedula-cliente-input">Cédula</label>
+
+                        <input class="form-control" formControlName="cedula" type="text" id="cedula-cliente-input">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="celular-cliente-input">Celular</label>
+                        <input class="form-control" formControlName="celular" type="text" id="celular-cliente-input">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="direccion-cliente-input">Dirección</label>
+
+                        <input class="form-control" formControlName="direccion" type="text" id="direccion-cliente-input">
+
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+
+        
+
+    </div>
+</div>
+

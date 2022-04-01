@@ -1,0 +1,55 @@
+<div class="card">
+    <div class="card-header">
+        <p class="negrita">Clientes Registrados</p>
+    </div>
+    <div class="card-body">
+        <div class="mb-3 row justify-content-end">
+            <div class="col-lg-12 col-md-12 col-sm-12 d-flex">
+                <label for="table-filtering-search" class="col-form-label mr-2">Buscar: </label>
+                <input id="table-filtering-search" class="form-control mr-2" type="text" (ngModelChange)="buscar()" [formControl]="filter">
+                <select class="form-control" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshClientes()">
+                    <option [ngValue]="5">5 registros por pagina</option>
+                    <option [ngValue]="10">10 registros por pagina</option>
+                    <option [ngValue]="15">15 registros por pagina</option>
+                </select>    
+            </div>
+        </div>
+        <table class="table table-striped" style="font-size: 15px;">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Cédula</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Dirección</th>
+                    <th scope="col"># Prestamos</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cliente of clientesFinal; index as i">
+                    <th scope="row">{{ cliente.position }}</th>
+                    <td> {{ cliente.nombre }}</td>
+                    <td> {{ cliente.cedula }}</td>
+                    <td> {{ cliente.celular }}</td>
+                    <td> {{ cliente.direccion }}</td>
+                    <td> {{ cliente.prestamos_activos }}</td>
+                    <td>
+                        <button (click)="registrarPrestamo(cliente.id)" type="button" title="Registrar Prestamo" class="btn btn-primary btn-sm mr-1"><i class="bi bi-cash-coin"></i></button>
+                        <button (click)="editarInformacionCliente(cliente.id)" type="button" title="Editar Información" class="btn btn-warning btn-sm mr-1"><i class="bi bi-pencil-square"></i></button>
+                        <button (click)="verInformacionCliente(cliente.id)" type="button" title="Ver Información Cliente" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></button>
+                    </td>
+                    
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshClientes()">
+            </ngb-pagination>
+        
+            <p class="text-info negrita">Total Clientes: {{ collectionTotal }}</p>
+        </div>
+        
+    </div>
+</div>

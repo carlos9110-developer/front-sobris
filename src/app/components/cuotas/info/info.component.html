@@ -1,0 +1,51 @@
+<div class="alert alert-dark" role="alert">
+    Información Cuota
+</div>
+<div *ngIf="cuota">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="form-group">
+                <label for="info-cliente">Cliente</label>
+                <input class="form-control" value="{{ cuota.nombre }}" type="text" id="info-cliente" disabled>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="form-group">
+                <label for="info-celular">Celular</label>
+                <input class="form-control" value="{{ cuota.celular }}" type="text" id="info-celular" disabled>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="form-group">
+                <label for="info-direccion">Dirección</label>
+                <input class="form-control" value="{{ cuota.direccion }}" type="text" id="info-direccion" disabled>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-6">
+            <div class="form-group">
+                <label for="info-valor-cuota">Valor Cuota</label>
+                <input class="form-control" value="{{ formatPesos(cuota.valor_cuota) }}" type="text" id="info-valor-cuota" disabled>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6">
+            <div class="form-group">
+                <label for="info-valor-abonado">Valor Abonado</label>
+                <input class="form-control" value="{{ formatPesos(cuota.valor_abonado) }}" type="text" id="info-valor-abonado" disabled>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6">
+            <div class="form-group">
+                <label class="negrita" for="info-valor-total">Valor Total</label>
+                <input class="form-control" value="{{ formatPesos(cuota.valor_total) }}" type="text" id="info-valor-total" disabled>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6">
+            <div class="form-group">
+                <label for="info-estado">Estado</label>
+                <input class="form-control" value="{{ cuota.estado }}" type="text" id="info-estado" disabled>
+            </div>
+        </div>
+    </div>
+<div>

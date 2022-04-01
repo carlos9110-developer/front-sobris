@@ -1,0 +1,33 @@
+<div class="container">
+    <div class='abs-center'>
+        <form  [formGroup]="loginForm">
+            <div class="mb-3">
+                <label htmlFor="user-input" class="form-label">Usuario</label>
+                <input  aria-describedby="userHelp" [ngClass]="{ 'is-invalid': loginForm.controls['user'].touched && loginForm.controls['user'].invalid,'is-valid': loginForm.controls['user'].valid}" formControlName="user" type="text" class="form-control">
+                <div id="userHelp" class="form-text">Digite su cédula</div>
+
+                <div *ngIf="loginForm.controls['user'].invalid && loginForm.controls['user'].touched">
+                    <small class="form-text text-danger" *ngIf="loginForm.controls['user'].errors?.['required']">El usuario es requerido</small>
+                    <small class="form-text text-danger" *ngIf="loginForm.controls['user'].errors?.['minlength']">El usuario debe tener minimo cinco caracteres</small>
+                    <small class="form-text text-danger" *ngIf="loginForm.controls['user'].errors?.['pattern']">El usuario solo debe contener números</small>
+                </div>
+                
+            </div>
+            <div class="mb-3">
+                <label htmlFor="password-input" class="form-label">Password</label>
+                <input  aria-describedby="passwordHelp" [ngClass]="{ 'is-invalid': loginForm.controls['password'].touched && loginForm.controls['password'].invalid,'is-valid': loginForm.controls['password'].valid}" formControlName="password" type="password" class="form-control">
+                <div id="passwordHelp" class="form-text">Digite su contraseña</div>
+
+                <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+                    <small class="form-text text-danger" *ngIf="loginForm.controls['password'].errors?.['required']">El password es requerido</small>
+                    <small class="form-text text-danger" *ngIf="loginForm.controls['password'].errors?.['minlength']">El password debe tener minimo cinco caracteres</small>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2 col-md mx-auto">
+                <button (click)="login() " [disabled]="!loginForm.valid || validando" type="submit " class="btn btn-primary btn-md ">Ingresar</button>
+            </div>
+
+        </form>
+    </div>
+</div>

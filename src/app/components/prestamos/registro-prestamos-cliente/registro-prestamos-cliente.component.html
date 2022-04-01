@@ -1,0 +1,281 @@
+<div class="card">
+    <div class="card-header d-flex">
+        <div class="col-lg-6 col-md-6"> <p class="negrita">Registro Prestamo</p></div>
+        <div class="col-lg-6 col-md-6 text-right">
+            <button class="btn btn-info btn-sm negrita" (click)="regresar()">
+                <i class="bi bi-reply-all"></i>
+                Clientes
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="prestamoForm">
+            <div class="alert alert-dark" role="alert">
+                Información Codeudor
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="nombre-codeudor-input">Nombre</label>
+                        <input [ngClass]="{'form-control':true,
+                                            'is-invalid':nombre_fiador?.touched && nombre_fiador?.invalid,
+                                            'is-valid': nombre_fiador?.valid}" 
+                                            formControlName="nombre_fiador" 
+                                            type="text" 
+                                            id="nombre-codeudor-input">
+
+                        <div *ngIf="nombre_fiador?.invalid && nombre_fiador?.touched">
+                            <small class="form-text text-danger" *ngIf="nombre_fiador?.errors?.['required']">El nombre del fiador es requerido</small>
+                            <small class="form-text text-danger" *ngIf="nombre_fiador?.errors?.['minlength']">El nombre del fiador debe tener minimo 4 caracteres</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="cedula-codeudor-input">Cédula</label>
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':cedula_fiador?.touched && cedula_fiador?.invalid,
+                        'is-valid': cedula_fiador?.valid}" 
+                        formControlName="cedula_fiador" 
+                        type="text" 
+                        id="cedula-codeudor-input">
+
+                        <div *ngIf="cedula_fiador?.invalid && cedula_fiador?.touched">
+                            <small class="form-text text-danger" *ngIf="cedula_fiador?.errors?.['required']">La cédula del fiador es requerida</small>
+                            <small class="form-text text-danger" *ngIf="cedula_fiador?.errors?.['minlength']">La cédula del fiador debe tener minimo 4 caracteres</small>
+                            <small class="form-text text-danger" *ngIf="cedula_fiador?.errors?.['pattern']">La cédula del fiador solo debe contener números</small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="celular-codeudor-input">Celular</label>
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':celular_fiador?.touched && celular_fiador?.invalid,
+                        'is-valid': celular_fiador?.valid}" 
+                        formControlName="celular_fiador" 
+                        type="text" 
+                        id="celular-codeudor-input">
+
+                        <div *ngIf="celular_fiador?.invalid && celular_fiador?.touched">
+                            <small class="form-text text-danger" *ngIf="celular_fiador?.errors?.['required']">El celular del fiador es requerida</small>
+                            <small class="form-text text-danger" *ngIf="celular_fiador?.errors?.['minlength'] || celular_fiador?.errors?.['maxlength']">El celular del fiador debe tener entre 7 y 10 números</small>
+                            <small class="form-text text-danger" *ngIf="celular_fiador?.errors?.['pattern']">El celular del fiador solo debe contener números</small>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="direccion-codeudor-input">Dirección</label>
+
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':direccion_fiador?.touched && direccion_fiador?.invalid,
+                        'is-valid': direccion_fiador?.valid}" 
+                        formControlName="direccion_fiador" 
+                        type="text" 
+                        id="direccion-codeudor-input">
+
+                        <div *ngIf="direccion_fiador?.invalid && direccion_fiador?.touched">
+                            <small class="form-text text-danger" *ngIf="direccion_fiador?.errors?.['required']">La dirección del fiador es requerida</small>
+                            <small class="form-text text-danger" *ngIf="direccion_fiador?.errors?.['minlength']">La dirección del fiador debe tener minimo 4 caracteres</small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-dark" role="alert">
+                Información Cliente
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="nombre-cliente-input">Nombre</label>
+
+                        <input [ngClass]="{'form-control':true,
+                                            'is-invalid':nombre?.touched && nombre?.invalid,
+                                            'is-valid': nombre?.valid}" 
+                                            formControlName="nombre" 
+                                            type="text" 
+                                            id="nombre-cliente-input">
+
+                        <div *ngIf="nombre?.invalid && nombre?.touched">
+                            <small class="form-text text-danger" *ngIf="nombre?.errors?.['required']">El nombre del cliente es requerido</small>
+                            <small class="form-text text-danger" *ngIf="nombre?.errors?.['minlength']">El nombre del cliente debe tener minimo 4 caracteres</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="cedula-cliente-input">Cédula</label>
+
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':cedula?.touched && cedula?.invalid,
+                        'is-valid': cedula?.valid}" 
+                        formControlName="cedula" 
+                        type="text" 
+                        id="cedula-cliente-input">
+
+                        <div *ngIf="cedula?.invalid && cedula?.touched">
+                            <small class="form-text text-danger" *ngIf="cedula?.errors?.['required']">La cédula del cliente es requerida</small>
+                            <small class="form-text text-danger" *ngIf="cedula?.errors?.['minlength']">La cédula del cliente debe tener minimo 4 caracteres</small>
+                            <small class="form-text text-danger" *ngIf="cedula?.errors?.['pattern']">La cédula del cliente solo debe contener números</small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="celular-cliente-input">Celular</label>
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':celular?.touched && celular?.invalid,
+                        'is-valid': celular?.valid}" 
+                        formControlName="celular" 
+                        type="text" 
+                        id="celular-cliente-input">
+
+                        <div *ngIf="celular?.invalid && celular?.touched">
+                            <small class="form-text text-danger" *ngIf="celular?.errors?.['required']">El celular del cliente es requerida</small>
+                            <small class="form-text text-danger" *ngIf="celular?.errors?.['minlength'] || celular?.errors?.['maxlength']">El celular del cliente debe tener entre 7 y 10 números</small>
+                            <small class="form-text text-danger" *ngIf="celular?.errors?.['pattern']">El celular del cliente solo debe contener números</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="direccion-cliente-input">Dirección</label>
+
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':direccion?.touched && direccion?.invalid,
+                        'is-valid': direccion?.valid}" 
+                        formControlName="direccion" 
+                        type="text" 
+                        id="direccion-cliente-input">
+
+                        <div *ngIf="direccion?.invalid && direccion?.touched">
+                            <small class="form-text text-danger" *ngIf="direccion?.errors?.['required']">La dirección del cliente es requerida</small>
+                            <small class="form-text text-danger" *ngIf="direccion?.errors?.['minlength']">La dirección del cliente debe tener minimo 4 caracteres</small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-dark" role="alert">
+                Información Prestamo
+            </div>
+   
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="valor-prestamo-input">Valor</label>
+
+                        <input (ngModelChange)="changeValor()"
+                            [ngClass]="{'form-control':true,
+                            'is-invalid':valor?.touched && valor?.invalid,
+                            'is-valid': valor?.valid}" 
+                            formControlName="valor" 
+                            type="text" 
+                            id="valor-prestamo-input"
+                            aria-describedby="valor-input-help">
+
+                        <small id="valor-input-help" class="form-text text-muted">{{ valorDescripcion }}</small>
+
+                        <div *ngIf="valor?.invalid && valor?.touched">
+                            <small class="form-text text-danger" *ngIf="valor?.errors?.['required']">El valor del prestamo es requerido</small>
+                            <small class="form-text text-danger" *ngIf="valor?.errors?.['pattern']">El valor del prestamo solo debe contener números</small>
+                        </div>
+
+                     </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="interes-prestamo-input">Interes</label>
+
+                        <input
+                            [ngClass]="{'form-control':true,
+                            'is-invalid':interes?.touched && interes?.invalid,
+                            'is-valid': interes?.valid}" 
+                            formControlName="interes" 
+                            type="text" 
+                            id="interes-prestamo-input">
+
+                        <div *ngIf="interes?.invalid && interes?.touched">
+                            <small class="form-text text-danger" *ngIf="interes?.errors?.['required']">El interes del prestamo es requerido</small>
+                            <small class="form-text text-danger" *ngIf="interes?.errors?.['pattern']">El interes del prestamo solo debe contener números</small>
+                            <small class="form-text text-danger" *ngIf="interes?.errors?.['minlength'] || interes?.errors?.['maxlength']">El interes del prestamo debe tener entre 1 y 2 números</small>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="cuotas-prestamo-input">Numero Cuotas</label>
+
+                        <input (ngModelChange)="changeCuotas()"
+                            [ngClass]="{'form-control':true,
+                            'is-invalid':( (cuotas?.touched) && ( cuotas?.invalid || !validacionCuotas )),
+                            'is-valid': cuotas?.valid}" 
+                            formControlName="cuotas" 
+                            type="text" 
+                            id="cuotas-prestamo-input"
+                            aria-describedby="cuotas-input-help">
+
+                        <small *ngIf="valor?.valid && interes?.valid && !validacionCuotas && cuotas?.touched && cuotas?.valid" id="cuotas-input-help" class="form-text text-muted">
+                            Las cuotas dan un valor incorrecto le sugerimos las siguientes <b class="pointer" (click)="setCuotaSugerida(numSugMenor)">{{ numSugMenor }}</b> o <b class="pointer" (click)="setCuotaSugerida(numSugMayor)">{{ numSugMayor }}</b> 
+                        </small> 
+
+                        <div *ngIf="cuotas?.invalid && cuotas?.touched">
+                            <small class="form-text text-danger" *ngIf="cuotas?.errors?.['required']">El número de cuotas del prestamo es requerido</small>
+                            <small class="form-text text-danger" *ngIf="cuotas?.errors?.['pattern']">El número de cuotas solo debe contener números</small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="valor-cuotas-prestamo-input">Valor Cuotas</label>
+                        <input  formControlName="valor_cuota" type="text" class="form-control" id="valor-cuotas-prestamo-input" >
+                        
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="frecuencia-prestamo-input">Frecuencia Pago</label>
+                        <select 
+                            formControlName="frecuencia" 
+                            id="frecuencia-prestamo-input"
+                            [ngClass]="{'form-control':true,
+                            'is-invalid':( frecuencia?.touched && frecuencia?.invalid ),
+                            'is-valid': frecuencia?.valid}" 
+                        >
+                            <option value="">Seleccione una opción:</option>
+                            <option value="D">Diario</option>    
+                            <option value="S">Semanal</option>    
+                            <option value="Q">Quincenal</option>    
+                            <option value="M">Mensual</option>    
+                        </select>
+
+                        <div *ngIf="frecuencia?.invalid && frecuencia?.touched">
+                            <small class="form-text text-danger" *ngIf="cuotas?.errors?.['required']">La frecuencia de pago de cuotas es requerida</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <button (click)="submit() " [disabled]="!prestamoForm.valid || validando || !validacionCuotas" type="button" class="btn btn-primary mt-3 negrita">Guardar</button>
+                </div>
+            </div>
+
+        </form>
+
+        
+
+    </div>
+</div>

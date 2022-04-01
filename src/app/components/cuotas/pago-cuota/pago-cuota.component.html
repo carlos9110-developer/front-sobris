@@ -1,0 +1,96 @@
+<div class="card">
+    <div class="card-header d-flex">
+        <div class="col-lg-6 col-md-6 negrita">Pago Cuota</div>
+        <div class="col-lg-6 col-md-6 text-right">
+            <button class="btn btn-info btn-sm negrita" (click)="regresar()">
+                <i class="bi bi-reply-all"></i>
+                Regresar
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+            
+        
+        <form [formGroup]="pagoCuotaForm">
+
+            <app-info-cuota-component (enviarValorTotal)="getValorTotalHijo($event)"  [id]="idCuota"></app-info-cuota-component>
+
+            <div class="alert alert-dark" role="alert">
+                Información Pago
+            </div>
+        
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label for="nombre-codeudor-input">Tipo Pago</label><br/>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" formControlName="tipo_pago" id="tipo_pago_total" value="total" (ngModelChange)="changeTipoPago()">
+                        <label class="form-check-label" for="tipo_pago_total">
+                            Total
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" formControlName="tipo_pago" id="tipo_pago_abono" value="abono" (ngModelChange)="changeTipoPago()">
+                        <label class="form-check-label" for="tipo_pago_abono">
+                            Abono
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6" *ngIf="tipoPago === 'abono'">
+                    <div class="form-group">
+                        <label for="abono-input">Valor Abono</label>
+
+                        <input (ngModelChange)="changeAbono()"
+                            [ngClass]="{'form-control':true,
+                            'is-invalid':abono?.touched && abono?.invalid,
+                            'is-valid': abono?.valid}" 
+                            formControlName="abono" 
+                            type="text" 
+                            id="abono-input"
+                            aria-describedby="abono-input-help">
+
+                        <small id="abono-input-help" class="form-text text-muted">{{ abonoDescripcion }}</small>
+
+                        <div *ngIf="abono?.invalid && abono?.touched">
+                            <small class="form-text text-danger" *ngIf="abono?.errors?.['required']">El valor del abono es requerido</small>
+                            <small class="form-text text-danger" *ngIf="abono?.errors?.['pattern']">El valor del abono solo debe contener números</small>
+                        </div>
+
+                        <div *ngIf="abono?.touched">
+                            <small class="form-text text-danger" *ngIf="!validacionValorAbono()">El valor del abono debe de ser menor al valor total de la cuota, si va pagar toda la cuota seleccione tipo pago = Total </small>
+                        </div>
+
+                     </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6" *ngIf="tipoPago === 'abono'">
+                    <div class="form-group">
+                        <label for="fecha-input">Nueva Fecha</label>
+
+                        <input
+                            [ngClass]="{'form-control':true,
+                            'is-invalid':nueva_fecha?.touched && nueva_fecha?.invalid,
+                            'is-valid': nueva_fecha?.valid}" 
+                            formControlName="nueva_fecha" 
+                            type="date" 
+                            min="{{ fechaMinima }}"
+                            id="fecha-input">
+
+                        <div *ngIf="nueva_fecha?.invalid && nueva_fecha?.touched">
+                            <small class="form-text text-danger" *ngIf="nueva_fecha?.errors?.['required']">La nueva fecha de la cuota es requerida</small>
+                        </div>
+
+                     </div>
+                </div>
+            </div>
+            <div class="row">
+                
+                <div class="col-lg-12 text-center">
+                    <button (click)="submit()" [disabled]="!pagoCuotaForm.valid || validando || !validacionValorAbonoSubmit()"  type="button" class="btn btn-primary mt-3 negrita">Guardar</button>
+                </div>
+            </div>
+
+        </form>
+
+        
+        
+    </div>
+</div>

@@ -1,0 +1,183 @@
+<div class="card">
+    <div class="card-header d-flex">
+        <div class="col-lg-6 col-md-6"> <p class="negrita">Editar Información Cliente</p></div>
+        <div class="col-lg-6 col-md-6 text-right">
+            <button class="btn btn-info btn-sm negrita" (click)="regresar()">
+                <i class="bi bi-reply-all"></i>
+                Clientes
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="clientesForm">
+            <div class="alert alert-dark" role="alert">
+                Información Codeudor
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="nombre-codeudor-input">Nombre</label>
+                        <input [ngClass]="{'form-control':true,
+                                            'is-invalid':nombre_fiador?.touched && nombre_fiador?.invalid,
+                                            'is-valid': nombre_fiador?.valid}" 
+                                            formControlName="nombre_fiador" 
+                                            type="text" 
+                                            id="nombre-codeudor-input">
+
+                        <div *ngIf="nombre_fiador?.invalid && nombre_fiador?.touched">
+                            <small class="form-text text-danger" *ngIf="nombre_fiador?.errors?.['required']">El nombre del fiador es requerido</small>
+                            <small class="form-text text-danger" *ngIf="nombre_fiador?.errors?.['minlength']">El nombre del fiador debe tener minimo 4 caracteres</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="cedula-codeudor-input">Cédula</label>
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':cedula_fiador?.touched && cedula_fiador?.invalid,
+                        'is-valid': cedula_fiador?.valid}" 
+                        formControlName="cedula_fiador" 
+                        type="text" 
+                        id="cedula-codeudor-input">
+
+                        <div *ngIf="cedula_fiador?.invalid && cedula_fiador?.touched">
+                            <small class="form-text text-danger" *ngIf="cedula_fiador?.errors?.['required']">La cédula del fiador es requerida</small>
+                            <small class="form-text text-danger" *ngIf="cedula_fiador?.errors?.['minlength']">La cédula del fiador debe tener minimo 4 caracteres</small>
+                            <small class="form-text text-danger" *ngIf="cedula_fiador?.errors?.['pattern']">La cédula del fiador solo debe contener números</small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="celular-codeudor-input">Celular</label>
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':celular_fiador?.touched && celular_fiador?.invalid,
+                        'is-valid': celular_fiador?.valid}" 
+                        formControlName="celular_fiador" 
+                        type="text" 
+                        id="celular-codeudor-input">
+
+                        <div *ngIf="celular_fiador?.invalid && celular_fiador?.touched">
+                            <small class="form-text text-danger" *ngIf="celular_fiador?.errors?.['required']">El celular del fiador es requerida</small>
+                            <small class="form-text text-danger" *ngIf="celular_fiador?.errors?.['minlength'] || celular_fiador?.errors?.['maxlength']">El celular del fiador debe tener entre 7 y 10 números</small>
+                            <small class="form-text text-danger" *ngIf="celular_fiador?.errors?.['pattern']">El celular del fiador solo debe contener números</small>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="direccion-codeudor-input">Dirección</label>
+
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':direccion_fiador?.touched && direccion_fiador?.invalid,
+                        'is-valid': direccion_fiador?.valid}" 
+                        formControlName="direccion_fiador" 
+                        type="text" 
+                        id="direccion-codeudor-input">
+
+                        <div *ngIf="direccion_fiador?.invalid && direccion_fiador?.touched">
+                            <small class="form-text text-danger" *ngIf="direccion_fiador?.errors?.['required']">La dirección del fiador es requerida</small>
+                            <small class="form-text text-danger" *ngIf="direccion_fiador?.errors?.['minlength']">La dirección del fiador debe tener minimo 4 caracteres</small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-dark" role="alert">
+                Información Cliente
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="nombre-cliente-input">Nombre</label>
+
+                        <input [ngClass]="{'form-control':true,
+                                            'is-invalid':nombre?.touched && nombre?.invalid,
+                                            'is-valid': nombre?.valid}" 
+                                            formControlName="nombre" 
+                                            type="text" 
+                                            id="nombre-cliente-input">
+
+                        <div *ngIf="nombre?.invalid && nombre?.touched">
+                            <small class="form-text text-danger" *ngIf="nombre?.errors?.['required']">El nombre del cliente es requerido</small>
+                            <small class="form-text text-danger" *ngIf="nombre?.errors?.['minlength']">El nombre del cliente debe tener minimo 4 caracteres</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="cedula-cliente-input">Cédula</label>
+
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':cedula?.touched && cedula?.invalid,
+                        'is-valid': cedula?.valid}" 
+                        formControlName="cedula" 
+                        type="text" 
+                        id="cedula-cliente-input">
+
+                        <div *ngIf="cedula?.invalid && cedula?.touched">
+                            <small class="form-text text-danger" *ngIf="cedula?.errors?.['required']">La cédula del cliente es requerida</small>
+                            <small class="form-text text-danger" *ngIf="cedula?.errors?.['minlength']">La cédula del cliente debe tener minimo 4 caracteres</small>
+                            <small class="form-text text-danger" *ngIf="cedula?.errors?.['pattern']">La cédula del cliente solo debe contener números</small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="celular-cliente-input">Celular</label>
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':celular?.touched && celular?.invalid,
+                        'is-valid': celular?.valid}" 
+                        formControlName="celular" 
+                        type="text" 
+                        id="celular-cliente-input">
+
+                        <div *ngIf="celular?.invalid && celular?.touched">
+                            <small class="form-text text-danger" *ngIf="celular?.errors?.['required']">El celular del cliente es requerida</small>
+                            <small class="form-text text-danger" *ngIf="celular?.errors?.['minlength'] || celular?.errors?.['maxlength']">El celular del cliente debe tener entre 7 y 10 números</small>
+                            <small class="form-text text-danger" *ngIf="celular?.errors?.['pattern']">El celular del cliente solo debe contener números</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="direccion-cliente-input">Dirección</label>
+
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':direccion?.touched && direccion?.invalid,
+                        'is-valid': direccion?.valid}" 
+                        formControlName="direccion" 
+                        type="text" 
+                        id="direccion-cliente-input">
+
+                        <div *ngIf="direccion?.invalid && direccion?.touched">
+                            <small class="form-text text-danger" *ngIf="direccion?.errors?.['required']">La dirección del cliente es requerida</small>
+                            <small class="form-text text-danger" *ngIf="direccion?.errors?.['minlength']">La dirección del cliente debe tener minimo 4 caracteres</small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+           
+            <div class="row">
+                
+                <div class="col-lg-12 text-center">
+                    <button (click)="submit() " [disabled]="!clientesForm.valid || validando" type="button" class="btn btn-primary mt-3 negrita">Guardar</button>
+                </div>
+            </div>
+
+        </form>
+
+        
+
+    </div>
+</div>
+

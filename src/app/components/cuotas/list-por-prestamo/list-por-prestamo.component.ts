@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {  ObtenerCuotasPrestamoPorFecha, ObtenerRutaCobradorPorFecha } from 'src/app/interfaces/cuotas';
+import {  IObtenerCuotasPrestamoPorFecha } from 'src/app/interfaces/cuotas';
 import { CuotasService } from 'src/app/services/cuotas.service';
 import { TokenService } from 'src/app/services/token.service';
 import { Location } from '@angular/common';
 import { AlertsService } from 'src/app/services/alerts.service';
-import { ListadoCuotas } from '../../../interfaces/cuotas';
+import { IListadoCuotas } from '../../../interfaces/cuotas';
 
 @Component({
   selector: 'app-list-por-prestamo',
@@ -18,9 +18,9 @@ export class ListPorPrestamoComponent implements OnInit {
   filterFecha = new FormControl('');
 
   filter = new FormControl('');
-  cuotasTotal:ListadoCuotas[] = [];
-  cuotasFilter:ListadoCuotas[] = [];
-  cuotasFinal:ListadoCuotas[] = [];
+  cuotasTotal:IListadoCuotas[] = [];
+  cuotasFilter:IListadoCuotas[] = [];
+  cuotasFinal:IListadoCuotas[] = [];
 
   collectionSize:number = 0;
   collectionTotal:number = 0;
@@ -114,7 +114,7 @@ export class ListPorPrestamoComponent implements OnInit {
 
   private getObjetoObtenerCuotasPrestamoPorFecha()
   {
-    let datos: ObtenerCuotasPrestamoPorFecha = {
+    let datos: IObtenerCuotasPrestamoPorFecha = {
       fecha : this.filterFecha.value,
       id_prestamo: this.idPrestamo
     }

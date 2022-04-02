@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { InfoCuota } from '../../../interfaces/cuotas';
+import { IInfoCuota } from '../../../interfaces/cuotas';
 import { CuotasService } from 'src/app/services/cuotas.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 
@@ -14,7 +14,7 @@ export class InfoComponent implements OnInit {
 
   @Output() enviarValorTotal = new EventEmitter<number>();
 
-  cuota!: InfoCuota;
+  cuota!: IInfoCuota;
 
   constructor(
     private cuotasService:CuotasService,

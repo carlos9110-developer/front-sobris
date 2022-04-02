@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { InfoCuota, ObtenerRutaCobradorPorFecha, AbonoCuota, PagoCuota, ObtenerCuotasPrestamoPorFecha } from '../interfaces/cuotas';
+import { IInfoCuota, IObtenerRutaCobradorPorFecha, IAbonoCuota, IPagoCuota, IObtenerCuotasPrestamoPorFecha, IObtenerRutaGeneralEmpresaPorFecha } from '../interfaces/cuotas';
 import { apiResponse } from '../interfaces/general';
 import { TokenService } from './token.service';
 
@@ -15,17 +15,22 @@ export class CuotasService {
      private tokenService:TokenService 
   ) { }
 
-  obtenerRutaCobradorPorFecha(datos:ObtenerRutaCobradorPorFecha)
+  obtenerRutaCobradorPorFecha(datos:IObtenerRutaCobradorPorFecha)
   {
     return this.http.post<apiResponse>(`${environment.baseUrl}cuotas/getRutaByFechaAndCobrador`,datos,{ headers: this.tokenService.returnHeader() });
   }
 
-  abonoCuota(datos:AbonoCuota)
+  obtenerRutaGeneralEmpresaPorFecha(datos:IObtenerRutaGeneralEmpresaPorFecha)
+  {
+    return this.http.post<apiResponse>(`${environment.baseUrl}cuotas/obtenerRutaGeneralEmpresaPorFecha`,datos,{ headers: this.tokenService.returnHeader() });
+  }
+
+  abonoCuota(datos:IAbonoCuota)
   {
     return this.http.post<apiResponse>(`${environment.baseUrl}cuotas/abono`,datos,{ headers: this.tokenService.returnHeader() });
   }
 
-  pagoCuota(datos:PagoCuota)
+  pagoCuota(datos:IPagoCuota)
   {
     return this.http.post<apiResponse>(`${environment.baseUrl}cuotas/pago`,datos,{ headers: this.tokenService.returnHeader() });
   }
@@ -48,7 +53,7 @@ export class CuotasService {
     return this.http.get<apiResponse>(`${environment.baseUrl}cuotas/obtenerCuotasPrestamo/${idPrestamo}`,{ headers: this.tokenService.returnHeader() });
   }
   
-  obtenerCuotasPrestamoPorFecha(datos:ObtenerCuotasPrestamoPorFecha){
+  obtenerCuotasPrestamoPorFecha(datos:IObtenerCuotasPrestamoPorFecha){
     return this.http.post<apiResponse>(`${environment.baseUrl}cuotas/obtenerCuotasPrestamoPorFecha`,datos,{ headers: this.tokenService.returnHeader() });
   }
 

@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <div *ngIf="collectionTotal === 0" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center mt-4">
+        <div *ngIf="collectionTotal === 0  || cargando === true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center mt-4">
             <p *ngIf="cargando === false" class="text-info negrita">
                 No se encontro ningún registro con la fecha seleccionada, ni en estado incumplido
             </p>
@@ -26,13 +26,13 @@
             </p>
         </div>
 
-        <div *ngIf="collectionTotal !== 0">
+        <div *ngIf="collectionTotal !== 0 && cargando === false">
             <table class="table table-striped letraTablas">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Cliente</th>
-                        <th scope="col">Celular</th>
+                        <th scope="col">Cobrador</th>
                         <th scope="col">Valor Cuota</th>
                         <th scope="col">Valor Abonado</th>
                         <th scope="col">Fecha Pago</th>
@@ -43,21 +43,18 @@
                 <tbody>
                     <tr *ngFor="let cuota of cuotasFinal; index as i">
                         <th scope="row">{{ cuota.position }}</th>
-                        <td>
-                            {{ cuota.nombre }}
-                        </td>
-                        <td> {{ cuota.celular }}</td>
-                        <td>
-                            {{ formatPesos(cuota.valor_cuota) }}
-                        </td>
+                        <td>{{ cuota.nombre }}</td>
+                        <td>{{ cuota.cobrador }}</td>
+                        <td>{{ formatPesos(cuota.valor_cuota) }}</td>
                         <td> {{ formatPesos(cuota.valor_abonado) }}</td>
-                        <td>
-                            {{   getFecha(cuota.fecha, cuota.fecha_nueva)  }}
-                        </td>
+                        <td>{{   getFecha(cuota.fecha, cuota.fecha_nueva)  }}</td>
                         <td> {{ cuota.estado }}</td>
                         <td>
-                            <button (click)="realizarPago(cuota.id)" type="button" title="Registrar Pago" class="btn btn-primary btn-sm mr-1"><i class="bi bi-cash"></i></button>
+                            <!-- 
+                                <button (click)="realizarPago(cuota.id)" type="button" title="Registrar Pago" class="btn btn-primary btn-sm mr-1"><i class="bi bi-cash"></i></button>
                             <button *ngIf="cuota.estado !== 'Incumplido' " (click)="pagoIncumplido(cuota.id)" type="button" title="Marcar Como Incumplido" class="btn btn-danger btn-sm"><i class="bi bi-radioactive"></i></button>
+                            -->
+                            <button (click)="verInformacionCliente(cuota.id_cliente)" type="button" title="Ver Información Cliente" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></button>
                         </td>
                     </tr>
                 </tbody>

@@ -6,6 +6,7 @@ import { TokenService } from 'src/app/services/token.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -36,7 +37,10 @@ export class ListComponent implements OnInit {
       this.alertsService.errorMsg("Error",this.alertsService.errorInicioSesion);
       this.tokenService.redirigirLogin();
     }
+    
    }
+
+   
 
   ngOnInit(): void {
     this.cargando = true;
@@ -90,6 +94,10 @@ export class ListComponent implements OnInit {
 
   registrarCartera(){
     this.router.navigate(['/registro-cartera']);
+  }
+
+  verInformacionCobrador(id:number){
+
   }
 
 }

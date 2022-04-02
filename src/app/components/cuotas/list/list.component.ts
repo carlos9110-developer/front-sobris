@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CuotasService } from 'src/app/services/cuotas.service';
 import { TokenService } from 'src/app/services/token.service';
-import {  ListadoCuotas, ObtenerRutaCobradorPorFecha } from '../../../interfaces/cuotas';
+import {  IListadoCuotas, IObtenerRutaCobradorPorFecha } from '../../../interfaces/cuotas';
 
 @Component({
   selector: 'app-list',
@@ -15,9 +15,9 @@ export class ListComponent implements OnInit {
   filterFecha = new FormControl('');
 
   filter = new FormControl('');
-  cuotasTotal:ListadoCuotas[] = [];
-  cuotasFilter:ListadoCuotas[] = [];
-  cuotasFinal:ListadoCuotas[] = [];
+  cuotasTotal:IListadoCuotas[] = [];
+  cuotasFilter:IListadoCuotas[] = [];
+  cuotasFinal:IListadoCuotas[] = [];
 
   collectionSize:number = 0;
   collectionTotal:number = 0;
@@ -84,7 +84,7 @@ export class ListComponent implements OnInit {
 
   private getObjetoRutaCobradorPorFecha()
   {
-    let datos: ObtenerRutaCobradorPorFecha = {
+    let datos: IObtenerRutaCobradorPorFecha = {
       fecha : this.filterFecha.value,
       cobrador: this.tokenService.returnId()
     }

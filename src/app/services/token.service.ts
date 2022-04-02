@@ -2,6 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { datosSesion } from '../interfaces/users';
+import * as CryptoJS from 'crypto-js';
 
 
 @Injectable({
@@ -9,9 +10,15 @@ import { datosSesion } from '../interfaces/users';
 })
 export class TokenService {
 
+  public key = CryptoJS.enc.Utf8.parse ("1234123412ABCDEF"); // número hexadecimal de 16 dígitos como clave
+  public iv = CryptoJS.enc.Utf8.parse ('ABCDEF1234123412'); // Número hexadecimal como desplazamiento de clave
+   
   constructor(
     private router:Router
-  ) { }
+  ) { 
+        console.log()
+   }
+
 
   returnHeader():HttpHeaders
   {
@@ -26,7 +33,8 @@ export class TokenService {
 
   private returnDatosSesion() : datosSesion
   {
-    let user:string             = localStorage.getItem("user") || "";
+    let user:any             = localStorage.getItem("user") || "";
+    user = this.decryp(user);
     let datosSesion:datosSesion = JSON.parse(user);
     return datosSesion;
   }
@@ -56,11 +64,33 @@ export class TokenService {
     localStorage.clear();
   }
 
-  public validarToken() : string
+   validarToken() : string
   {
     let user:string             = localStorage.getItem("user") || "";
     return user;
   }
+
+  guardanSesionLocalStorage(data:datosSesion)
+  {
+    localStorage.setItem('user',this.encrypt(data));
+  }
+
+   encrypt(data:datosSesion) {
+     console.log("encrypt",JSON.stringify(data));
+    let srcs = CryptoJS.enc.Utf8.parse(JSON.stringify(data));
+    let encrypted = CryptoJS.AES.encrypt(srcs, this.key, { iv: this.iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+    return encrypted.ciphertext.toString().toUpperCase();
+  }
+
+   decryp(data:string){
+    let encryptedHexStr = CryptoJS.enc.Hex.parse(data);
+    let srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr);
+    let decrypt = CryptoJS.AES.decrypt(srcs, this.key, { iv: this.iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+    let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+    console.log("decryp",decryptedStr.toString());
+    return decryptedStr.toString();
+  }
+
 
 
 

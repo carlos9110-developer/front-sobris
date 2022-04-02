@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { CuotasService } from 'src/app/services/cuotas.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AbonoCuota, PagoCuota } from '../../../interfaces/cuotas';
+import { IAbonoCuota, IPagoCuota } from '../../../interfaces/cuotas';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { TokenService } from 'src/app/services/token.service';
 
@@ -101,7 +101,7 @@ export class PagoCuotaComponent implements OnInit {
 
   private abonoCuota()
   {
-    let datos:AbonoCuota = {
+    let datos:IAbonoCuota = {
       id: this.idCuota,
       abono:parseInt( this.abono?.value + "000"),
       fecha:this.nueva_fecha?.value
@@ -131,7 +131,7 @@ export class PagoCuotaComponent implements OnInit {
 
   private pagoCuota()
   {
-    let datos:PagoCuota = {
+    let datos:IPagoCuota = {
       id_cuota:     this.idCuota,
       id_cobrador:  this.tokenService.returnId()
     }

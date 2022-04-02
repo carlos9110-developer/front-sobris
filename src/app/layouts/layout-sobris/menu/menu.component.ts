@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from 'src/app/services/token.service';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 @Component({
   selector: 'app-menu',
@@ -11,8 +12,13 @@ export class MenuComponent implements OnInit {
   rol!:number;
 
   constructor(
-    private tokenService:TokenService
+    private tokenService:TokenService,
+    private alertsService:AlertsService,
   ) {
+    if(this.tokenService.validarToken()===''){
+      this.alertsService.errorMsg("Error",this.alertsService.errorInicioSesion);
+      this.tokenService.redirigirLogin();
+    }
     this.asignarRol();
    }
 

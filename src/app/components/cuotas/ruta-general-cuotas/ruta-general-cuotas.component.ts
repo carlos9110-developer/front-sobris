@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { InfoCuota, ObtenerRutaCobradorPorFecha } from 'src/app/interfaces/cuotas';
+import { IListadoCuotasGeneral, IObtenerRutaGeneralEmpresaPorFecha } from 'src/app/interfaces/cuotas';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CuotasService } from 'src/app/services/cuotas.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -16,9 +16,9 @@ export class RutaGeneralCuotasComponent implements OnInit {
   filterFecha = new FormControl('');
 
   filter = new FormControl('');
-  cuotasTotal:InfoCuota[] = [];
-  cuotasFilter:InfoCuota[] = [];
-  cuotasFinal:InfoCuota[] = [];
+  cuotasTotal:IListadoCuotasGeneral[] = [];
+  cuotasFilter:IListadoCuotasGeneral[] = [];
+  cuotasFinal:IListadoCuotasGeneral[] = [];
 
   collectionSize:number = 0;
   collectionTotal:number = 0;
@@ -59,7 +59,7 @@ export class RutaGeneralCuotasComponent implements OnInit {
   private obtenerRutaCobradorPorFecha()
   {
     this.cargando = true;
-    this.cuotasService.obtenerRutaCobradorPorFecha(this.getObjetoRutaCobradorPorFecha()).subscribe(
+    this.cuotasService.obtenerRutaGeneralEmpresaPorFecha(this.getObjetoRutaGeneralEmpresaPorFecha()).subscribe(
       result => {
         console.log(result.data);
         this.cuotasTotal = result.data;
@@ -83,11 +83,11 @@ export class RutaGeneralCuotasComponent implements OnInit {
     
   }
 
-  private getObjetoRutaCobradorPorFecha()
+  private getObjetoRutaGeneralEmpresaPorFecha()
   {
-    let datos: ObtenerRutaCobradorPorFecha = {
+    let datos: IObtenerRutaGeneralEmpresaPorFecha = {
       fecha : this.filterFecha.value,
-      cobrador: this.tokenService.returnId()
+      empresa: this.tokenService.returnEmpresa()
     }
     return datos;
   }
@@ -116,7 +116,7 @@ export class RutaGeneralCuotasComponent implements OnInit {
       this.cuotasFilter = this.cuotasTotal.filter( cuota => {
           let fecha:string = this.getFecha(cuota.fecha, cuota.fecha_nueva);
           return cuota.nombre.toLocaleLowerCase().includes(term)
-            ||  cuota.celular.toLocaleLowerCase().includes(term)
+            ||  cuota.cobrador.toLocaleLowerCase().includes(term)
             ||  cuota.valor_cuota.toString().includes(term)
             ||  cuota.valor_abonado.toString().includes(term)
             ||  fecha.includes(term)
@@ -149,6 +149,11 @@ export class RutaGeneralCuotasComponent implements OnInit {
   pagoIncumplido(id:number)
   {
     this.router.navigate(['/pago-incumplido', id]);
+  }
+
+  verInformacionCliente(id:number)
+  {
+    this.router.navigate(['/informacion-cliente', id]);
   }
 
 }

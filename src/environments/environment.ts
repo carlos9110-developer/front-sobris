@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: "http://pruebacarlos.890m.com/api/",
+  baseUrl: "http://localhost:8000/api/",
   baseUrlArchivos: "http://localhost:8000/",
 };
 

@@ -5,6 +5,7 @@ import { datosSesion } from '../../../interfaces/users';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TokenService } from 'src/app/services/token.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     private fb:FormBuilder,
     private loginService:LoginService,
     private alertsService:AlertsService,
-    private router:Router
+    private router:Router,
+    private tokenService:TokenService,
   ) {
     this.loginForm = this.createForm();
   }
@@ -54,7 +56,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.loginForm.value).subscribe(
       result => {
         if (result.code == 200) {
-          this.setSessionData(result.data);
+          this.tokenService.guardanSesionLocalStorage(result.data);
           this.router.navigate([""]);
         } else {
           this.alertsService.errorMsg("Error",result.data);

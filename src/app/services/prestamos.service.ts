@@ -31,6 +31,11 @@ export class PrestamosService {
   {
     return this.http.get<apiResponse>(`${environment.baseUrl}prestamos/obtenerPrestamosPorCobrador/${id}`,{ headers: this.tokenService.returnHeader() });
   }
+ 
+  obtenerPrestamosCliente(id:number)
+  {
+    return this.http.get<apiResponse>(`${environment.baseUrl}prestamos/obtenerPrestamosCliente/${id}`,{ headers: this.tokenService.returnHeader() });
+  }
 
 
 

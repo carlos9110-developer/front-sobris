@@ -9,6 +9,7 @@ import {  PagoCuotaComponent } from './pago-cuota/pago-cuota.component';
 import { InfoComponent } from './info/info.component';
 import { PagoIncumplidoComponent } from './pago-incumplido/pago-incumplido.component';
 import { ListPorPrestamoComponent } from './list-por-prestamo/list-por-prestamo.component';
+import { RutaGeneralCuotasComponent } from './ruta-general-cuotas/ruta-general-cuotas.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ListPorPrestamoComponent } from './list-por-prestamo/list-por-prestamo.
     PagoCuotaComponent,
     InfoComponent,
     PagoIncumplidoComponent,
-    ListPorPrestamoComponent
+    ListPorPrestamoComponent,
+    RutaGeneralCuotasComponent
   ],
   imports: [
     CommonModule,

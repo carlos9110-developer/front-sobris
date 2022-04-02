@@ -1,0 +1,75 @@
+<div class="card">
+    <div class="card-header">
+        <p class="negrita">Registro Prestamo</p>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="cobradorForm">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="nombre-input">Nombre</label>
+                        <input [ngClass]="{'form-control':true,
+                                            'is-invalid':nombre?.touched && nombre?.invalid,
+                                            'is-valid': nombre?.valid}" 
+                                            formControlName="nombre" 
+                                            type="text" 
+                                            id="nombre-input">
+
+                        <div *ngIf="nombre?.invalid && nombre?.touched">
+                            <small class="form-text text-danger" *ngIf="nombre?.errors?.['required']">El nombre del cobrador es requerido</small>
+                            <small class="form-text text-danger" *ngIf="nombre?.errors?.['minlength']">El nombre del cobrador debe tener minimo 4 caracteres</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="cedula-input">Cédula</label>
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':cedula?.touched && cedula?.invalid,
+                        'is-valid': cedula?.valid}" 
+                        formControlName="cedula" 
+                        type="text" 
+                        id="cedula-input">
+
+                        <div *ngIf="cedula?.invalid && cedula?.touched">
+                            <small class="form-text text-danger" *ngIf="cedula?.errors?.['required']">La cédula del cobrador es requerida</small>
+                            <small class="form-text text-danger" *ngIf="cedula?.errors?.['minlength']">La cédula del cobrador debe tener minimo 4 caracteres</small>
+                            <small class="form-text text-danger" *ngIf="cedula?.errors?.['pattern']">La cédula del cobrador solo debe contener números</small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="celular-input">Celular</label>
+                        <input [ngClass]="{'form-control':true,
+                        'is-invalid':celular?.touched && celular?.invalid,
+                        'is-valid': celular?.valid}" 
+                        formControlName="celular" 
+                        type="text" 
+                        id="celular-input">
+
+                        <div *ngIf="celular?.invalid && celular?.touched">
+                            <small class="form-text text-danger" *ngIf="celular?.errors?.['required']">El celular del cobrador es requerida</small>
+                            <small class="form-text text-danger" *ngIf="celular?.errors?.['minlength'] || celular?.errors?.['maxlength']">El celular del cobrador debe tener entre 7 y 10 números</small>
+                            <small class="form-text text-danger" *ngIf="celular?.errors?.['pattern']">El celular del cobrador solo debe contener números</small>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6 text-center">
+                    <button (click)="submit() " [disabled]="!cobradorForm.valid || validando" type="button" class="btn btn-primary mt-3 negrita">Guardar</button>
+                </div>
+               
+            </div>
+            
+        </form>
+
+        
+
+    </div>
+</div>
+

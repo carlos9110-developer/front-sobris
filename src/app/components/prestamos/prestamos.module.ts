@@ -8,13 +8,15 @@ import { RegistroPrestamoComponent } from './registro-prestamo/registro-prestamo
 import { ListPorCobradorComponent } from './list-por-cobrador/list-por-cobrador.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegistroPrestamosClienteComponent } from './registro-prestamos-cliente/registro-prestamos-cliente.component';
+import { ListadoPrestamosClienteComponent } from './listado-prestamos-cliente/listado-prestamos-cliente.component';
 
 
 @NgModule({
   declarations: [
     RegistroPrestamoComponent,
     ListPorCobradorComponent,
-    RegistroPrestamosClienteComponent
+    RegistroPrestamosClienteComponent,
+    ListadoPrestamosClienteComponent
   ],
   imports: [
     CommonModule,

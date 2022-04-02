@@ -11,3 +11,10 @@ export interface Cobradores {
     presamos_activos:number,
     position?:number,
 }
+
+export interface RegistroCobrador {
+    cedula: string,
+    empresa_id: number,
+    nombre: string
+    celular:string,
+}

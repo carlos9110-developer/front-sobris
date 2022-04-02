@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { apiResponse } from '../interfaces/general';
 import { TokenService } from './token.service';
+import { RegistroCobrador } from '../interfaces/cobradores';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,11 @@ export class CobradoresService {
   get()
   {
     return this.http.get<apiResponse>(`${environment.baseUrl}empresas/${this.tokenService.returnEmpresa()}/cobradores`, { headers: this.tokenService.returnHeader() });
+  }
+
+  registrar(datos:RegistroCobrador)
+  {
+    return this.http.post<apiResponse>(`${environment.baseUrl}cobradores/registrar`, datos,{ headers: this.tokenService.returnHeader() });
   }
 
 

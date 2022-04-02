@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CobradoresService } from '../../../services/cobradores.service';
 import { Cobradores } from '../../../interfaces/cobradores';
 import { FormControl } from '@angular/forms';
+import { TokenService } from 'src/app/services/token.service';
+import { AlertsService } from 'src/app/services/alerts.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -20,23 +23,39 @@ export class ListComponent implements OnInit {
   page:number = 1;
   pageSize:number = 5;
 
+  cargando = false;
+
 
   constructor(
-    private cobradoresService:CobradoresService
-  ) { }
+    private cobradoresService:CobradoresService,
+    private tokenService:TokenService,
+    private router:Router,
+    private alertsService:AlertsService,
+  ) {
+    if(this.tokenService.validarToken()===''){
+      this.alertsService.errorMsg("Error",this.alertsService.errorInicioSesion);
+      this.tokenService.redirigirLogin();
+    }
+   }
 
   ngOnInit(): void {
-
+    this.cargando = true;
     this.cobradoresService.get().subscribe(
       result => {
-        console.log(result.data);
         this.cobradoresTotal = result.data;
         this.cobradoresFilter = result.data;
         this.collectionSize =   this.cobradoresFilter.length;
         this.collectionTotal =   this.cobradoresTotal.length;
         this.refreshCobradores();
+        this.cargando = false;
       }, error => {
-        console.log("error cobradores",error);
+        if( error.error.code === 403 ){
+          this.alertsService.errorMsg("Error",error.error.data);
+          this.tokenService.redirigirLogin();
+        }else{
+          this.alertsService.errorMsg("Error",this.alertsService.errorRequestHttp);
+        }
+        this.cargando = false;
       }
     );
   }
@@ -67,6 +86,10 @@ export class ListComponent implements OnInit {
     this.cobradoresFinal = this.cobradoresFilter
       .map((cobrador, i) => ({position: i + 1, ...cobrador}))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  }
+
+  registrarCartera(){
+    this.router.navigate(['/registro-cartera']);
   }
 
 }

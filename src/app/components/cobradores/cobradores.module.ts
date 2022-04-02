@@ -5,11 +5,13 @@ import { CobradoresRoutingModule } from './cobradores-routing.module';
 import { ListComponent } from './list/list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RegistroCobradorComponent } from './registro-cobrador/registro-cobrador.component';
 
 
 @NgModule({
   declarations: [
-    ListComponent
+    ListComponent,
+    RegistroCobradorComponent
   ],
   imports: [
     FormsModule,

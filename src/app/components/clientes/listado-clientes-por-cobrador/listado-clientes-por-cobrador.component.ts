@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
 import { ClientesService } from '../../../services/clientes.service';
 import { ListadoClientes } from '../../../interfaces/cliente';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 @Component({
   selector: 'app-listado-clientes-por-cobrador',
@@ -24,13 +25,19 @@ export class ListadoClientesPorCobradorComponent implements OnInit {
   page:number = 1;
   pageSize:number = 5;
 
+  cargando = false;
+
 
   constructor(
     private clientesService:ClientesService,
     private tokenService:TokenService,
+    private alertsService:AlertsService,
     private router:Router 
   ) {
-    
+    if(this.tokenService.validarToken()===''){
+      this.alertsService.errorMsg("Error",this.alertsService.errorInicioSesion);
+      this.tokenService.redirigirLogin();
+    }
   }
 
   ngOnInit(): void {
@@ -39,6 +46,7 @@ export class ListadoClientesPorCobradorComponent implements OnInit {
 
   private obtenerClientesPorCobrador()
   {
+    this.cargando = true;
     this.clientesService.obtenerClientesPorCobrador(this.tokenService.returnId()).subscribe(
       result => {
         console.log(result.data);
@@ -47,9 +55,15 @@ export class ListadoClientesPorCobradorComponent implements OnInit {
         this.collectionSize  = this.clientesFilter.length;
         this.collectionTotal = this.clientesTotal.length;
         this.refreshClientes();
+        this.cargando = false;
       } , error =>  {
-        console.log("error rutas",error);
-        
+        if( error.error.code === 403 ){
+          this.alertsService.errorMsg("Error",error.error.data);
+          this.tokenService.redirigirLogin();
+        }else{
+          this.alertsService.errorMsg("Error",this.alertsService.errorRequestHttp);
+        }
+        this.cargando = false;
       }
     )
   }
@@ -103,6 +117,10 @@ export class ListadoClientesPorCobradorComponent implements OnInit {
   verInformacionCliente(id:number)
   {
     this.router.navigate(['/informacion-cliente', id]);
+  }
+
+  verPrestamosCliente(id:number){
+    this.router.navigate(['/prestamos-cliente', id]);
   }
 
 

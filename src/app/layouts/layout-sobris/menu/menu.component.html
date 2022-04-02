@@ -4,11 +4,9 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" [routerLink]="['/carteras']">Carteras <span class="sr-only">(current)</span></a>
-            </li>
+    <!-- Menú Cobrador -->
+    <div *ngIf="rol === 1" class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" >
             <li class="nav-item active">
                 <a class="nav-link" [routerLink]="['/registro-prestamo']">Registro Prestamo</a>
             </li>
@@ -20,6 +18,18 @@
             </li>
             <li class="nav-item active">
                 <a class="nav-link" [routerLink]="['/clientes']">Clientes</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Menú Supervisor -->
+    <div *ngIf="rol === 2" class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" >
+            <li class="nav-item active">
+                <a class="nav-link" [routerLink]="['/carteras']">Carteras</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" [routerLink]="['/ruta-general']">Rutas</a>
             </li>
         </ul>
     </div>

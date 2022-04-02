@@ -1,0 +1,73 @@
+<div class="card">
+    <div class="card-header d-flex">
+        <div class="col-lg-6 col-md-6 negrita">Listado Prestamos</div>
+        <div class="col-lg-6 col-md-6 text-right">
+            <button class="btn btn-info btn-sm negrita" (click)="regresar()">
+                <i class="bi bi-reply-all"></i>
+                Regresar
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="mb-3 row justify-content-end">
+            <div class="col-lg-9 col-md-9 col-sm-12 d-flex">
+                <label for="table-filtering-search" class="col-form-label mr-2">Buscar: </label>
+                <input id="table-filtering-search" class="form-control mr-2" type="text" (ngModelChange)="buscar()" [formControl]="filter">
+                <select class="form-control" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshPrestamos()">
+                    <option [ngValue]="5">5 registros por pagina</option>
+                    <option [ngValue]="10">10 registros por pagina</option>
+                    <option [ngValue]="15">15 registros por pagina</option>
+                </select>
+            </div>
+        </div>
+
+        <div *ngIf="collectionTotal === 0" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center mt-4">
+            <p *ngIf="cargando === true" class="text-info negrita">
+                Cargando información...
+            </p>
+        </div>
+
+        <div  *ngIf="collectionTotal !== 0" >
+            <table class="table table-striped letraTablas">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Abonado</th>
+                        <th scope="col">Debe</th>
+                        <th scope="col">Valor Cuotas</th>
+                        <th scope="col"># Cuotas</th>
+                        <th scope="col"># Facturadas</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let prestamo of prestamosFinal; index as i">
+                        <th scope="row">{{ prestamo.position }}</th>
+                        <td>{{ prestamo.cliente }}</td>
+                        <td> {{ formatPesos(prestamo.valor) }}</td>
+                        <td> {{ formatPesos(prestamo.abonado) }}</td>
+                        <td> {{ formatPesos(prestamo.debe) }}</td>
+                        <td> {{ formatPesos(prestamo.valor_cuota) }}</td>
+                        <td> {{ prestamo.cuotas }}</td>
+                        <td> {{ prestamo.cuotas_canceladas }}</td>
+                        <td>
+                            <button (click)="verCuotas(prestamo.id_prestamo)" type="button" title="Ver Cuotas" class="btn btn-secondary btn-sm mr-1"><i class="bi bi-cash-coin"></i></button>
+                            <button (click)="verInfoCliente(prestamo.id_cliente)" type="button" title="Ver Información Cliente" class="btn btn-info btn-sm mr-1"><i class="bi bi-eye-fill"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="d-flex justify-content-between p-2">
+                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshPrestamos()">
+                </ngb-pagination>
+            
+                <p class="text-info negrita">Total Prestamos: {{ collectionTotal }}</p>
+            </div>
+        </div>
+
+        
+    </div>
+</div>

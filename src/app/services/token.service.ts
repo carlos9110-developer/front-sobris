@@ -41,6 +41,11 @@ export class TokenService {
     return this.returnDatosSesion().id;
   }
 
+  returnRol()
+  {
+    return this.returnDatosSesion().rol_id;
+  }
+
   
   redirigirLogin(){
     this.limpiarLocalStorage();

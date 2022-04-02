@@ -11,11 +11,19 @@ import { ListadoClientesPorCobradorComponent } from '../../components/clientes/l
 import { RegistroPrestamosClienteComponent } from '../../components/prestamos/registro-prestamos-cliente/registro-prestamos-cliente.component';
 import { EditarInformacionClienteComponent } from '../../components/clientes/editar-informacion-cliente/editar-informacion-cliente.component';
 import { InfoClienteComponent } from '../../components/clientes/info-cliente/info-cliente.component';
+import { ListadoPrestamosClienteComponent } from '../../components/prestamos/listado-prestamos-cliente/listado-prestamos-cliente.component';
+import { RegistroCobradorComponent } from '../../components/cobradores/registro-cobrador/registro-cobrador.component';
+import { RutaGeneralCuotasComponent } from '../../components/cuotas/ruta-general-cuotas/ruta-general-cuotas.component';
 
 const routes: Routes = [
   {
     path:     "carteras",
     component: ListCobradoresComponent,
+    loadChildren: () => import("../../components/cobradores/cobradores.module").then( (m) => m.CobradoresModule ),
+  },
+  {
+    path:     "registro-cartera",
+    component: RegistroCobradorComponent,
     loadChildren: () => import("../../components/cobradores/cobradores.module").then( (m) => m.CobradoresModule ),
   },
   {
@@ -34,6 +42,11 @@ const routes: Routes = [
     loadChildren: () => import("../../components/cuotas/cuotas.module").then( (m) => m.CuotasModule ),
   },
   {
+    path:     "ruta-general",
+    component: RutaGeneralCuotasComponent,
+    loadChildren: () => import("../../components/cuotas/cuotas.module").then( (m) => m.CuotasModule ),
+  },
+  {
     path:     "pago-cuota/:id",
     component: PagoCuotaComponent,
     loadChildren: () => import("../../components/cuotas/cuotas.module").then( (m) => m.CuotasModule ),
@@ -46,6 +59,11 @@ const routes: Routes = [
   {
     path:     "prestamos",
     component: ListPorCobradorComponent,
+    loadChildren: () => import("../../components/prestamos/prestamos.module").then( (m) => m.PrestamosModule ),
+  },
+  {
+    path:     "prestamos-cliente/:id",
+    component: ListadoPrestamosClienteComponent,
     loadChildren: () => import("../../components/prestamos/prestamos.module").then( (m) => m.PrestamosModule ),
   },
   {

@@ -1,7 +1,13 @@
 
 <div class="card">
-    <div class="card-header">
-        <p class="negrita">Listado Carteras</p>
+    <div class="card-header d-flex">
+        <div class="col-lg-6 col-md-6"> <p class="negrita">Listado Carteras</p></div>
+        <div class="col-lg-6 col-md-6 text-right">
+            <button class="btn btn-info btn-sm negrita" (click)="registrarCartera()" >
+                <i class="bi bi-plus-square"></i>
+                Registrar Cartera
+            </button>
+        </div>
     </div>
     <div class="card-body">
         <div class="mb-3 row justify-content-end">
@@ -15,39 +21,50 @@
                 </select>
             </div>
         </div>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Cédula</th>
-                    <th scope="col">Celular</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Prestamos Activos</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let cobrador of cobradoresFinal; index as i">
-                    <th scope="row">{{ cobrador.position }}</th>
-                    <td>
-                        {{ cobrador.nombre }}
-                    </td>
-                    <td> {{ cobrador.cedula }}</td>
-                    <td>
-                        {{ cobrador.celular }}
-                    </td>
-                    <td> {{ cobrador.estado }}</td>
-                    <td> {{ cobrador.presamos_activos }}</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <div class="d-flex justify-content-between p-2">
-            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCobradores()">
-            </ngb-pagination>
-        
-            <p class="text-info negrita">Total Carteras: {{ collectionTotal }}</p>
+
+        <div *ngIf="collectionTotal === 0" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center mt-4">
+            <p *ngIf="cargando === true" class="text-info negrita">
+                Cargando información...
+            </p>
         </div>
+
+        <div>
+            <table class="table table-striped letraTablas">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Cédula</th>
+                        <th scope="col">Celular</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col"># Prestamos Activos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cobrador of cobradoresFinal; index as i">
+                        <th scope="row">{{ cobrador.position }}</th>
+                        <td>
+                            {{ cobrador.nombre }}
+                        </td>
+                        <td> {{ cobrador.cedula }}</td>
+                        <td>
+                            {{ cobrador.celular }}
+                        </td>
+                        <td> {{ cobrador.estado }}</td>
+                        <td> {{ cobrador.presamos_activos }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="d-flex justify-content-between p-2">
+                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCobradores()">
+                </ngb-pagination>
+            
+                <p class="text-info negrita">Total Carteras: {{ collectionTotal }}</p>
+            </div>
+        </div>
+
+        
     </div>
 </div>
 

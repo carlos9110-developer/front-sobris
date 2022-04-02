@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
+  rol!:number;
 
-  constructor() { }
+  constructor(
+    private tokenService:TokenService
+  ) {
+    this.asignarRol();
+   }
 
   ngOnInit(): void {
+  }
+
+
+  private asignarRol()
+  {
+    this.rol = this.tokenService.returnRol();
   }
 
 }

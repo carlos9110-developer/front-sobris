@@ -25,6 +25,22 @@ export interface InfoCuota{
     position?:number,
 }
 
+export interface ListadoCuotas{
+    created_at: string,
+    estado: string
+    fecha: string,
+    fecha_nueva: string,
+    id: number,
+    id_prestamo: number,
+    id_cliente: number,
+    nombre: string,
+    updated_at: string,
+    valor_abonado: number,
+    valor_cuota: number,
+    valor_total: number,
+    position?:number,
+}
+
 export interface AbonoCuota{
     id:number,
     abono:number,

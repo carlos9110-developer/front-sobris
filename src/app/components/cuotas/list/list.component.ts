@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CuotasService } from 'src/app/services/cuotas.service';
 import { TokenService } from 'src/app/services/token.service';
-import { InfoCuota, ObtenerRutaCobradorPorFecha } from '../../../interfaces/cuotas';
+import {  ListadoCuotas, ObtenerRutaCobradorPorFecha } from '../../../interfaces/cuotas';
 
 @Component({
   selector: 'app-list',
@@ -15,9 +15,9 @@ export class ListComponent implements OnInit {
   filterFecha = new FormControl('');
 
   filter = new FormControl('');
-  cuotasTotal:InfoCuota[] = [];
-  cuotasFilter:InfoCuota[] = [];
-  cuotasFinal:InfoCuota[] = [];
+  cuotasTotal:ListadoCuotas[] = [];
+  cuotasFilter:ListadoCuotas[] = [];
+  cuotasFinal:ListadoCuotas[] = [];
 
   collectionSize:number = 0;
   collectionTotal:number = 0;
@@ -115,7 +115,6 @@ export class ListComponent implements OnInit {
       this.cuotasFilter = this.cuotasTotal.filter( cuota => {
           let fecha:string = this.getFecha(cuota.fecha, cuota.fecha_nueva);
           return cuota.nombre.toLocaleLowerCase().includes(term)
-            ||  cuota.celular.toLocaleLowerCase().includes(term)
             ||  cuota.valor_cuota.toString().includes(term)
             ||  cuota.valor_abonado.toString().includes(term)
             ||  fecha.includes(term)
@@ -150,7 +149,10 @@ export class ListComponent implements OnInit {
     this.router.navigate(['/pago-incumplido', id]);
   }
 
-
+  verInformacionCliente(id:number)
+  {
+    this.router.navigate(['/informacion-cliente', id]);
+  }
 
 
 }

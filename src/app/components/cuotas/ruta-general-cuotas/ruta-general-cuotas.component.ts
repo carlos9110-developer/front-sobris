@@ -1,35 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import {  ObtenerCuotasPrestamoPorFecha, ObtenerRutaCobradorPorFecha } from 'src/app/interfaces/cuotas';
+import { Router } from '@angular/router';
+import { InfoCuota, ObtenerRutaCobradorPorFecha } from 'src/app/interfaces/cuotas';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { CuotasService } from 'src/app/services/cuotas.service';
 import { TokenService } from 'src/app/services/token.service';
-import { Location } from '@angular/common';
-import { AlertsService } from 'src/app/services/alerts.service';
-import { ListadoCuotas } from '../../../interfaces/cuotas';
 
 @Component({
-  selector: 'app-list-por-prestamo',
-  templateUrl: './list-por-prestamo.component.html',
-  styleUrls: ['./list-por-prestamo.component.css']
+  selector: 'app-ruta-general-cuotas',
+  templateUrl: './ruta-general-cuotas.component.html',
+  styleUrls: ['./ruta-general-cuotas.component.css']
 })
-export class ListPorPrestamoComponent implements OnInit {
+export class RutaGeneralCuotasComponent implements OnInit {
 
   filterFecha = new FormControl('');
 
   filter = new FormControl('');
-  cuotasTotal:ListadoCuotas[] = [];
-  cuotasFilter:ListadoCuotas[] = [];
-  cuotasFinal:ListadoCuotas[] = [];
+  cuotasTotal:InfoCuota[] = [];
+  cuotasFilter:InfoCuota[] = [];
+  cuotasFinal:InfoCuota[] = [];
 
   collectionSize:number = 0;
   collectionTotal:number = 0;
   page:number = 1;
   pageSize:number = 5;
-
-  numCuotasTotal:number = 0;
-
-  idPrestamo!:number;
 
   cargando = false;
 
@@ -38,8 +32,6 @@ export class ListPorPrestamoComponent implements OnInit {
     private cuotasService:CuotasService,
     private tokenService:TokenService,
     private router:Router,
-    private route:ActivatedRoute,
-    private _location: Location,
     private alertsService:AlertsService
   ) {
     if(this.tokenService.validarToken()===''){
@@ -49,49 +41,25 @@ export class ListPorPrestamoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.asignarIdPrestamo();
+    this.setearFechaInicio();
   }
 
 
-  private asignarIdPrestamo()
+  setearFechaInicio()
   {
-    this.route.params.subscribe(params => {
-      //debugger
-      this.idPrestamo = params['id'];
-      this.obtenerCuotasPorPrestamo();
-    });
+    let fecha = new Date();
+    let anio:string  = fecha.getFullYear().toString();
+    let mes:string   = ( fecha.getMonth() + 1 <= 9 ) ? "0" + (fecha.getMonth() + 1).toString() : (fecha.getMonth() + 1).toString();
+    let dia:string   = ( fecha.getDate() <= 9 )      ? "0" + (fecha.getDate()).toString()      : (fecha.getDate()).toString();
+    let nuevaFecha = anio + "-" + mes + "-" + dia;
+    this.filterFecha.setValue(nuevaFecha);
+    this.obtenerRutaCobradorPorFecha();
   }
 
-  private obtenerCuotasPorPrestamo()
-  {
-    this.cargando = true;
-    this.cuotasService.obtenerCuotasPorPrestamo(this.idPrestamo).subscribe(
-      result => {
-        console.log("resultado",result.data);
-        this.cuotasTotal = result.data;
-        this.cuotasFilter = result.data;
-        this.collectionSize =   this.cuotasFilter.length;
-        this.collectionTotal =   this.cuotasTotal.length;
-        this.numCuotasTotal = this.cuotasTotal.length;
-        this.refreshCuotas();
-        this.cargando = false;
-      } , error =>  {
-        if( error.error.code === 403 ){
-          this.alertsService.errorMsg("Error",error.error.data);
-          this.tokenService.redirigirLogin();
-        }else{
-          this.alertsService.errorMsg("Error",this.alertsService.errorRequestHttp);
-        }
-        this.cargando = false;
-        
-      }
-    )
-  }
-
-  private obtenerCuotasPorPrestamoYFecha()
+  private obtenerRutaCobradorPorFecha()
   {
     this.cargando = true;
-    this.cuotasService.obtenerCuotasPrestamoPorFecha(this.getObjetoObtenerCuotasPrestamoPorFecha()).subscribe(
+    this.cuotasService.obtenerRutaCobradorPorFecha(this.getObjetoRutaCobradorPorFecha()).subscribe(
       result => {
         console.log(result.data);
         this.cuotasTotal = result.data;
@@ -110,13 +78,16 @@ export class ListPorPrestamoComponent implements OnInit {
         this.cargando = false;
       }
     )
+    
+
+    
   }
 
-  private getObjetoObtenerCuotasPrestamoPorFecha()
+  private getObjetoRutaCobradorPorFecha()
   {
-    let datos: ObtenerCuotasPrestamoPorFecha = {
+    let datos: ObtenerRutaCobradorPorFecha = {
       fecha : this.filterFecha.value,
-      id_prestamo: this.idPrestamo
+      cobrador: this.tokenService.returnId()
     }
     return datos;
   }
@@ -145,6 +116,7 @@ export class ListPorPrestamoComponent implements OnInit {
       this.cuotasFilter = this.cuotasTotal.filter( cuota => {
           let fecha:string = this.getFecha(cuota.fecha, cuota.fecha_nueva);
           return cuota.nombre.toLocaleLowerCase().includes(term)
+            ||  cuota.celular.toLocaleLowerCase().includes(term)
             ||  cuota.valor_cuota.toString().includes(term)
             ||  cuota.valor_abonado.toString().includes(term)
             ||  fecha.includes(term)
@@ -166,11 +138,7 @@ export class ListPorPrestamoComponent implements OnInit {
 
   buscarPorFecha()
   {
-    if(this.filterFecha.value !== ""){
-      this.obtenerCuotasPorPrestamoYFecha();
-    }else{
-      this.obtenerCuotasPorPrestamo();
-    }
+    this.obtenerRutaCobradorPorFecha();
   }
 
   realizarPago(id:number)
@@ -181,19 +149,6 @@ export class ListPorPrestamoComponent implements OnInit {
   pagoIncumplido(id:number)
   {
     this.router.navigate(['/pago-incumplido', id]);
-  }
-
-  regresar(){
-    this._location.back();
-  }
-
-  quitarFiltroFecha(){
-    this.filterFecha.setValue('');
-  }
-
-  verInformacionCliente(id:number)
-  {
-    this.router.navigate(['/informacion-cliente', id]);
   }
 
 }

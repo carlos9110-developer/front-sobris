@@ -20,6 +20,11 @@ export interface PrestamoClienteRegistrado{
     id_cobrador:number
 }
 
+export interface ICambiarCobradorPrestamo {
+    id_prestamo: number,
+    id_cobrador: number
+}
+
 
 export interface ListaPrestamos {
     id_cliente:number,

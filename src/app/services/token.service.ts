@@ -76,7 +76,6 @@ export class TokenService {
   }
 
    encrypt(data:datosSesion) {
-     console.log("encrypt",JSON.stringify(data));
     let srcs = CryptoJS.enc.Utf8.parse(JSON.stringify(data));
     let encrypted = CryptoJS.AES.encrypt(srcs, this.key, { iv: this.iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
     return encrypted.ciphertext.toString().toUpperCase();
@@ -87,7 +86,6 @@ export class TokenService {
     let srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr);
     let decrypt = CryptoJS.AES.decrypt(srcs, this.key, { iv: this.iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
     let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
-    console.log("decryp",decryptedStr.toString());
     return decryptedStr.toString();
   }
 

@@ -18,3 +18,18 @@ export interface RegistroCobrador {
     nombre: string
     celular:string,
 }
+
+export interface ICobradoresSelect {
+    id: number,
+    nombre: string
+}
+
+
+
+export interface IInformacionCobrador {
+    nombre: string,
+    celular: string,
+    cedula: string
+    estado:string,
+    carteras_activas:number,
+}

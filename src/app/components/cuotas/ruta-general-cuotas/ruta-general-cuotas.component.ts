@@ -156,4 +156,6 @@ export class RutaGeneralCuotasComponent implements OnInit {
     this.router.navigate(['/informacion-cliente', id]);
   }
 
+
+
 }

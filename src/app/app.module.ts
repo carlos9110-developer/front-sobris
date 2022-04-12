@@ -1,3 +1,4 @@
+import { NgSelectModule } from '@ng-select/ng-select';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -18,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,12 @@
 <div class="card">
-    <div class="card-header">
-        <p class="negrita">Registro Prestamo</p>
+    <div class="card-header d-flex">
+        <div class="col-lg-6 col-md-6"> <p class="negrita">Registro Cobrador</p></div>
+        <div class="col-lg-6 col-md-6 text-right">
+            <button class="btn btn-info btn-sm negrita" (click)="regresar()">
+                <i class="bi bi-reply-all"></i>
+                Carteras
+            </button>
+        </div>
     </div>
     <div class="card-body">
         <form [formGroup]="cobradorForm">

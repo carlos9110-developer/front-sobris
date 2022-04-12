@@ -5,6 +5,7 @@ import { AlertsService } from 'src/app/services/alerts.service';
 import { TokenService } from 'src/app/services/token.service';
 import { RegistroCobrador } from '../../../interfaces/cobradores';
 import { CobradoresService } from '../../../services/cobradores.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-registro-cobrador',
@@ -18,6 +19,7 @@ export class RegistroCobradorComponent implements OnInit {
   validando = false;
 
   constructor(
+    private _location: Location,
     private formBuilder:FormBuilder,
     private alertsService:AlertsService,
     private tokenService:TokenService,
@@ -95,5 +97,11 @@ export class RegistroCobradorComponent implements OnInit {
   get nombre() { return  this.cobradorForm.get('nombre'); }
   get cedula() { return  this.cobradorForm.get('cedula'); }
   get celular() { return this.cobradorForm.get('celular'); }
+
+  regresar()
+  {
+    this._location.back();
+  }
+
 
 }

@@ -97,7 +97,11 @@ export class ListComponent implements OnInit {
   }
 
   verInformacionCobrador(id:number){
+    this.router.navigate(['/informacion-cobrador', id]);
+  }
 
+  verPrestamosCartera(id:number){
+    this.router.navigate(['/prestamos-cartera', id]);
   }
 
 }

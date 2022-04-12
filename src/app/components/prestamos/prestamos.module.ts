@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { PrestamosRoutingModule } from './prestamos-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,6 +10,8 @@ import { ListPorCobradorComponent } from './list-por-cobrador/list-por-cobrador.
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegistroPrestamosClienteComponent } from './registro-prestamos-cliente/registro-prestamos-cliente.component';
 import { ListadoPrestamosClienteComponent } from './listado-prestamos-cliente/listado-prestamos-cliente.component';
+import { ListadoPrestamosCarteraComponent } from './listado-prestamos-cartera/listado-prestamos-cartera.component';
+import { CambiarCobradorPrestamoComponent } from './cambiar-cobrador-prestamo/cambiar-cobrador-prestamo.component';
 
 
 @NgModule({
@@ -16,7 +19,9 @@ import { ListadoPrestamosClienteComponent } from './listado-prestamos-cliente/li
     RegistroPrestamoComponent,
     ListPorCobradorComponent,
     RegistroPrestamosClienteComponent,
-    ListadoPrestamosClienteComponent
+    ListadoPrestamosClienteComponent,
+    ListadoPrestamosCarteraComponent,
+    CambiarCobradorPrestamoComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +29,8 @@ import { ListadoPrestamosClienteComponent } from './listado-prestamos-cliente/li
     CobradoresRoutingModule,
     ReactiveFormsModule,
     PrestamosRoutingModule,
-    NgbModule
+    NgbModule,
+    NgSelectModule
   ]
 })
 export class PrestamosModule { }

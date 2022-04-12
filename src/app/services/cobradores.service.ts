@@ -25,5 +25,16 @@ export class CobradoresService {
     return this.http.post<apiResponse>(`${environment.baseUrl}cobradores/registrar`, datos,{ headers: this.tokenService.returnHeader() });
   }
 
+  obtenerInformacionCobrador(id:number)
+  {
+    return this.http.get<apiResponse>(`${environment.baseUrl}cobradores/obtenerInformacionCobrador/${id}`,{ headers: this.tokenService.returnHeader() });
+  }
+
+
+  retornarCobradoresParaSelect(id:number)
+  {
+    return this.http.get<apiResponse>(`${environment.baseUrl}cobradores/retornarCobradoresParaSelect/${id}`,{ headers: this.tokenService.returnHeader() });
+  }
+
 
 }

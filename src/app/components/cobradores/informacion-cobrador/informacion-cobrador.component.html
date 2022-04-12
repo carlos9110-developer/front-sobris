@@ -1,0 +1,65 @@
+<div class="card">
+    <div class="card-header d-flex">
+        <div class="col-lg-6 col-md-6"> <p class="negrita">Información Cobrador</p></div>
+        <div class="col-lg-6 col-md-6 text-right">
+            <button class="btn btn-info btn-sm negrita" (click)="regresar()">
+                <i class="bi bi-reply-all"></i>
+                Carteras
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div *ngIf="cargando" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center mt-4">
+            <p  class="text-info negrita">
+                Cargando información...
+            </p>
+        </div>
+
+        <form  *ngIf="!cargando" [formGroup]="cobradorForm">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="nombre-input">Nombre</label>
+                        <input class="form-control" formControlName="nombre" type="text" id="nombre-input">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="cedula-input">Cédula</label>
+                        <input class="form-control" formControlName="cedula" type="text" id="cedula-input">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="celular-input">Celular</label>
+                        <input class="form-control" formControlName="celular"  type="text"  id="celular-input">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="carteras-input"># Carteras Activas</label>
+                        <input class="form-control" formControlName="carteras"  type="text"  id="carteras-input">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="estado-select">Estado</label>
+                        <select class="form-control" formControlName="estado"  id="estado-select">
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+               
+            </div>
+            
+        </form>
+
+        
+
+    </div>
+</div>
+
+

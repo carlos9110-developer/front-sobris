@@ -50,10 +50,6 @@
                         <td>{{   getFecha(cuota.fecha, cuota.fecha_nueva)  }}</td>
                         <td> {{ cuota.estado }}</td>
                         <td>
-                            <!-- 
-                                <button (click)="realizarPago(cuota.id)" type="button" title="Registrar Pago" class="btn btn-primary btn-sm mr-1"><i class="bi bi-cash"></i></button>
-                            <button *ngIf="cuota.estado !== 'Incumplido' " (click)="pagoIncumplido(cuota.id)" type="button" title="Marcar Como Incumplido" class="btn btn-danger btn-sm"><i class="bi bi-radioactive"></i></button>
-                            -->
                             <button (click)="verInformacionCliente(cuota.id_cliente)" type="button" title="Ver Información Cliente" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></button>
                         </td>
                     </tr>

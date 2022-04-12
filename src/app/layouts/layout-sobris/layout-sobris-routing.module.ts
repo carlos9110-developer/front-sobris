@@ -14,8 +14,12 @@ import { InfoClienteComponent } from '../../components/clientes/info-cliente/inf
 import { ListadoPrestamosClienteComponent } from '../../components/prestamos/listado-prestamos-cliente/listado-prestamos-cliente.component';
 import { RegistroCobradorComponent } from '../../components/cobradores/registro-cobrador/registro-cobrador.component';
 import { RutaGeneralCuotasComponent } from '../../components/cuotas/ruta-general-cuotas/ruta-general-cuotas.component';
+import { InformacionCobradorComponent } from '../../components/cobradores/informacion-cobrador/informacion-cobrador.component';
+import { ListadoPrestamosCarteraComponent } from '../../components/prestamos/listado-prestamos-cartera/listado-prestamos-cartera.component';
+import { CambiarCobradorPrestamoComponent } from '../../components/prestamos/cambiar-cobrador-prestamo/cambiar-cobrador-prestamo.component';
 
 const routes: Routes = [
+  /** MODULO COBRADORES */
   {
     path:     "carteras",
     component: ListCobradoresComponent,
@@ -27,6 +31,18 @@ const routes: Routes = [
     loadChildren: () => import("../../components/cobradores/cobradores.module").then( (m) => m.CobradoresModule ),
   },
   {
+    path:     "informacion-cobrador/:id",
+    component: InformacionCobradorComponent,
+    loadChildren: () => import("../../components/cobradores/cobradores.module").then( (m) => m.CobradoresModule ),
+  },
+
+  /** MODULO PRESTAMOS */
+  {
+    path:     "prestamos-cartera/:id",
+    component: ListadoPrestamosCarteraComponent,
+    loadChildren: () => import("../../components/prestamos/prestamos.module").then( (m) => m.PrestamosModule ),
+  },
+  {
     path:     "registro-prestamo",
     component: RegistroPrestamoComponent,
     loadChildren: () => import("../../components/prestamos/prestamos.module").then( (m) => m.PrestamosModule ),
@@ -36,6 +52,23 @@ const routes: Routes = [
     component: RegistroPrestamosClienteComponent,
     loadChildren: () => import("../../components/prestamos/prestamos.module").then( (m) => m.PrestamosModule ),
   },
+  {
+    path:     "prestamos",
+    component: ListPorCobradorComponent,
+    loadChildren: () => import("../../components/prestamos/prestamos.module").then( (m) => m.PrestamosModule ),
+  },
+  {
+    path:     "prestamos-cliente/:id",
+    component: ListadoPrestamosClienteComponent,
+    loadChildren: () => import("../../components/prestamos/prestamos.module").then( (m) => m.PrestamosModule ),
+  },
+  {
+    path:     "cambiar-cobrador-prestamo/:id",
+    component: CambiarCobradorPrestamoComponent,
+    loadChildren: () => import("../../components/prestamos/prestamos.module").then( (m) => m.PrestamosModule ),
+  },
+
+  /** MODULO CUOTAS */
   {
     path:     "rutas",
     component: ListRutasComponents,
@@ -56,21 +89,14 @@ const routes: Routes = [
     component: PagoIncumplidoComponent,
     loadChildren: () => import("../../components/cuotas/cuotas.module").then( (m) => m.CuotasModule ),
   },
-  {
-    path:     "prestamos",
-    component: ListPorCobradorComponent,
-    loadChildren: () => import("../../components/prestamos/prestamos.module").then( (m) => m.PrestamosModule ),
-  },
-  {
-    path:     "prestamos-cliente/:id",
-    component: ListadoPrestamosClienteComponent,
-    loadChildren: () => import("../../components/prestamos/prestamos.module").then( (m) => m.PrestamosModule ),
-  },
+  
   {
     path:     "cuotas-prestamo/:id",
     component: ListPorPrestamoComponent,
     loadChildren: () => import("../../components/cuotas/cuotas.module").then( (m) => m.CuotasModule),
   },
+
+  /** MODULO CLIENTES */
   {
     path:     "clientes",
     component: ListadoClientesPorCobradorComponent,
